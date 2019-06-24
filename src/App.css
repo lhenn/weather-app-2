@@ -1,33 +1,94 @@
 .App {
   text-align: center;
+  background-image:linear-gradient(white, #5491bc);
 }
-
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 40vmin;
-  pointer-events: none;
+#app, button, input[type="text"]{
+  font-family: "Trebuchet MS", "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Tahoma, sans-serif;
+  font-size:1em;
+  background-color:inherit;
 }
+h1, h4 {
+  display:flex;
+  align-items: flex-start;
+}
+button {
+  background-color:#515c6d;
+  color:white;
+  border:1px solid #073763;
+  border-radius:50px;
+  padding:5px 15px;
+  width:auto;
+}
+button:hover {
+  background-color:#073763;
+}
+input{
+  background-color: inherit;
+  margin:10px;
+  padding:0.5%;
+  border: solid 1px #073763;
+}
+#headerContainer{
+  display:flex;
+  align-items:center;
+  justify-content: space-around;
+}
+#header{
+  width:60%;
+}
+#header img{
+  width:100%;
+}
+.cityListContainer{
+  display:flex;
+  flex-direction:column;
+  padding:50px;
+}
+.cityContainer{
+  display:flex;
+  flex-direction:column;
+  background-color: #9aafbf;
+  margin:20px 0;
+  padding-left:10px
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+}
+.dayContainer{
+  display:flex;
+  flex-direction: row;
+  overflow-x:scroll;
+}
+.dayWeather{
+  display:flex;
+}
+.currentWeather, .timePoint{
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  background-color:inherit;
+  margin:5px;
+  padding:5px;
+  border: 1px solid #073763;
+  border-radius:20px;
 }
-
-.App-link {
-  color: #61dafb;
+.icon{
+  height:120px;
+  padding:5px;
 }
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.weekContainer{
+  display:flex;
+  flex-direction:row;
+  justify-content: space-around;
+}
+.hidden{
+  display:none;
+}
+table{
+  border-collapse:collapse;
+}
+td, th{
+  width:50px;
+  border-top:solid 1px black;
+  padding:0;
+}
+.weekDayIcon{
+  height:30px;
 }
