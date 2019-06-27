@@ -1,33 +1,50 @@
 import React, { Component } from 'react';
 import './App.css';
 import header from './header.png';
-import Cities from './Cities'
+import City from './City';
+import AddCity from './AddCity'
 
 class App extends Component {
   state = {
     cities: [
       {id: 1, name: "Amsterdam"},
       //{id: 2, name: "Mill Valley"},
-      {id: 3, name: "Barcelona"}
+      {id: 2, name: "Barcelona"}
     ]
   }
+  addCity = (city) => {
+    city.id=this.state.cities.length + 1;
+    let cities = [...this.state.cities, city];
+    this.setState({
+      cities:cities
+    })
+    console.log("added ", city);
+    console.log("all cities: ", this.state.cities)
+    //document.location.reload();
+  }
+
   render() {
-  return (
+  return(
     <div className="App">
-    <div id="headerContainer">
-      <div id="header"><img src={header} alt=""/></div>
-      <div id="searchbar">
-          <input id="city-input" type="text" placeholder="Find another city..."></input>
-          <input id="country-input" type="text" placeholder="Country"></input>
-          <button id="searchbutton" >Search</button>
+      <div id="headerContainer">
+        <div id="header">
+          <img src={header} alt=""/>
+        </div>
+        <AddCity addCity={this.addCity}/>
+      </div>
+      <div className="cityListContainer">
+        {this.state.cities.map(city => this.createCityList(city))}
       </div>
     </div>
-
-    <Cities cities={this.state.cities}/>
-    </div>
-
   );
-}
+  }
+
+  createCityList = (city) => {
+    return(
+      <City key={city.id} city={city} />
+    )
+  }
+
 }
 
 export default App;
