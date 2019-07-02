@@ -6,31 +6,49 @@ class City extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      cityData: [],
-      isLoaded: false
+      cityData: {},
+      isLoaded: false,
+      error: ""
     }
   }
 
   componentDidMount() {
-    this.getCityData(this.props.city);
+    console.log("this.props.city: ",this.props.city);
+    if(this.props.city.name !== "") this.getCityData(this.props.city);
+    else {
+      this.setState({
+        error:"nothing entered",
+        isLoaded:true
+      })
+    }
   }
 
-  async getCityData(city) {
+  getCityData(city) {
     let url = "https://api.openweathermap.org/data/2.5/forecast?q="
      + this.props.city.name + ",undefined&APPID=6c46ac8726907ad8effeff6768c2ea01";
-    let data = await fetch(url, {
+    fetch(url, {
       method: "GET"
       })
-      .then((response) => {
+      .then(function(response) {
         return response.json();
       })
-      .then((data) => data)
-      .catch(error => console.error(error))
-      this.cleanData(data);
-      let cityData = [...this.state.cityData, data];
-      this.setState({
-        cityData:cityData,
-        isLoaded: true,
+      .then(json => {
+        console.log(json);
+        if(json.cod === "200") {
+          this.setState({
+            cityData:this.cleanData(json),
+            isLoaded:true
+          })
+        } else {
+          console.log("problemo")
+          this.setState({
+            error:"city not found",
+            isLoaded:true
+          })
+        }
+      })
+      .catch(error => {
+        console.log(error)
       })
   }
 
@@ -42,6 +60,7 @@ class City extends Component {
       data['dayWeather'] = data.list.slice(0,7);
       data['weekWeather']= this.getWeekWeather(data.list);
     }
+    return data;
   }
 
   convertToCelsius(temp) {
@@ -78,27 +97,32 @@ class City extends Component {
   }
 
   render() {
+    console.log(this.state.isLoaded, this.state.error);
     const {cityData} = this.state;
-    console.log('cityData: ', cityData);
-    if (this.state.isLoaded)
+    if (this.state.isLoaded && this.state.error === "") {
+      return (
+        <div className="cityContainer" key={cityData.city.id}>
+          <div className="cityHeader">
+            <h1>{cityData.city.name}, {cityData.city.country}</h1>
+            <button>&times;</button>
+          </div>
+          <h4>Today, {cityData.list[0].date}</h4>
+          <div className="dayContainer">
+            {cityData.dayWeather.map(timePoint =>
+              <TimePoint key={timePoint.dt}
+              time={timePoint.time}
+              description={timePoint.weather[0].main}
+              temperature={timePoint.main.temp}
+              />
+            )}
+          </div>
+          <WeekForecast weekWeather={cityData.weekWeather} />
+        </div>
+      )
+    }
+    if(this.state.isLoaded && this.state.error !== "")
     return (
-      <div className="cityContainer" key={cityData[0].city.id}>
-        <div className="cityHeader">
-          <h1>{cityData[0].city.name}, {cityData[0].city.country}</h1>
-          <button>&times;</button>
-        </div>
-        <h4>Today, {cityData[0].list[0].date}</h4>
-        <div className="dayContainer">
-          {cityData[0].dayWeather.map(timePoint =>
-            <TimePoint key={timePoint.dt}
-            time={timePoint.time}
-            description={timePoint.weather[0].main}
-            temperature={timePoint.main.temp}
-            />
-          )}
-        </div>
-        <WeekForecast weekWeather={cityData[0].weekWeather} />
-      </div>
+      <div> { this.state.error } </div>
     )
     return(
       <div>Loading ...</div>

@@ -43,7 +43,7 @@ input{
 }
 .cityListContainer{
   display:flex;
-  flex-direction:column;
+  flex-flow:column-reverse;
   padding:50px;
 }
 .cityContainer{

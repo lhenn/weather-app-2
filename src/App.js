@@ -18,9 +18,7 @@ class App extends Component {
     this.setState({
       cities:cities
     })
-    console.log("added ", city);
-    console.log("all cities: ", this.state.cities)
-    //document.location.reload();
+    console.log("cities: ",cities);
   }
 
   render() {
