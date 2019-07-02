@@ -18,6 +18,7 @@ class WeekForecast extends Component {
     return (
       <div>
       <button
+      className="weekForecastButton"
       onClick={this.toggleClass}
       >
       Later this week  <span> {isActive ? '' : '>'} </span>

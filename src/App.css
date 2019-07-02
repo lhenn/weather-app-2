@@ -1,6 +1,12 @@
+#root{
+  height:100vh;
+  width:100%;
+  display:grid;
+}
 .App {
   text-align: center;
   background-image:linear-gradient(white, #5491bc);
+
 }
 #app, button, input[type="text"]{
   font-family: "Trebuchet MS", "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Tahoma, sans-serif;
@@ -41,17 +47,22 @@ input{
 #header img{
   width:100%;
 }
+#searchbar{
+  white-space:nowrap;
+}
 .cityListContainer{
   display:flex;
   flex-flow:column-reverse;
   padding:50px;
+
 }
 .cityContainer{
   display:flex;
   flex-direction:column;
   background-color: #9aafbf;
   margin:20px 0;
-  padding-left:10px
+  padding-left:10px;
+  overflow-y: scroll;
 
 }
 .dayContainer{
@@ -111,4 +122,10 @@ td, th{
   display:flex;
   justify-content: space-between;
   align-items: flex-start;
+}
+button.weekForecastButton {
+  margin:10px;
+}
+#errorContainer{
+  color:red;
 }
