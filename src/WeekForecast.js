@@ -49,7 +49,7 @@ class WeekForecast extends Component {
                   size="small"
                 />
               </td>
-              <td>{ timePoint.main.temp } &#176;C</td>
+              <td>{ this.props.convertTempUnit(this.props.unit, timePoint.main.temp) } </td>
               </tr>
         </tbody>
         </table>)}

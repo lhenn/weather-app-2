@@ -3,7 +3,10 @@ import TimePoint from './TimePoint'
 import WeekForecast from './WeekForecast'
 
 class City extends Component {
-
+  convertTempUnit(unit, temp) {
+    if(unit === 'F') return Math.round(temp * 9/5) + 32 + '\xB0F';
+    return temp + '\xB0C';
+  }
   render() {
     const cityData = this.props.city;
       return (
@@ -18,14 +21,13 @@ class City extends Component {
               <TimePoint key={timePoint.dt}
               time={timePoint.time}
               description={timePoint.weather[0].main}
-              temperature={timePoint.main.temp}
+              temperature={this.convertTempUnit(this.props.unit, timePoint.main.temp)}
               />
             )}
           </div>
-          <WeekForecast weekWeather={cityData.weekWeather} />
+          <WeekForecast weekWeather={cityData.weekWeather} unit={this.props.unit} convertTempUnit={this.convertTempUnit} />
         </div>
       )
-
   }
 }
 

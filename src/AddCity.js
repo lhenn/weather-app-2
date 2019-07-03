@@ -32,7 +32,7 @@ class AddCity extends Component {
             type="text"
             onChange={this.handleCityChange}
             value={this.state.name}
-            placeholder="Find another city..."
+            placeholder={this.props.placeholder}
             />
           <input
             id="country-input"

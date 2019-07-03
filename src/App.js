@@ -8,12 +8,13 @@ const countryCodes = require('./country_json.js');
 class App extends Component {
   state = {
     cities: [],
-    error: ""
+    error: "",
+    unit: 'C'
   }
   addCity = (city) => {
     let cityInput = city.name;
     if(cityInput === '') this.setState({
-      error:"Please search for your city above."
+      error:"Please enter a city above."
     })
     else {
       let countryInput = city.country !== '' ? (this.getCodeFromCountry(city.country)) : ('undefined');
@@ -83,6 +84,14 @@ class App extends Component {
     }
     return data;
   }
+  handleUnitChange() {
+    let newUnit;
+    if(this.state.unit === "C") newUnit = "F";
+    if(this.state.unit === "F") newUnit = "C";
+    this.setState({
+      unit:newUnit
+    })
+  }
   convertToCelsius(temp) {
     return Math.round(temp - 273.15);
   }
@@ -114,29 +123,47 @@ class App extends Component {
   }
 
   render() {
-    const cityList = this.state.cities.length ? (
-      this.state.cities.map(city => {
+    const cityList = this.state.cities.map(city => {
         return(
-          <City key={city.city.id} city={city} deleteCity={this.deleteCity} />
+          <City key={city.city.id} city={city} deleteCity={this.deleteCity} unit={this.state.unit} />
         )
-      })
-    ) : (
-      <div>No cities yet</div>
-    )
-    return(
-      <div className="App">
-        <div id="headerContainer">
+    })
+    if(this.state.cities.length) {
+      return(
+        <div className="App">
+          <div id="headerContainer">
+            <div id="header">
+              <img src={header} alt=""/>
+            </div>
+            <AddCity addCity={this.addCity} placeholder={'Find another city...'}/>
+          </div>
+          <div id="unit-control">
+            <span className="label">C&#176;</span>
+            <label className="switch">
+              <input type="checkbox" onClick={() => {this.handleUnitChange()}}/>
+              <span className="slider round"></span>
+            </label>
+            <span className="label">F&#176;</span>
+          </div>
+          <div id="errorContainer">{this.state.error}</div>
+          <div className="cityListContainer">
+            {cityList}
+          </div>
+        </div>
+      );
+    } else {
+      return(
+        <div className="App">
+        <div id="landingContainer">
           <div id="header">
             <img src={header} alt=""/>
           </div>
-          <AddCity addCity={this.addCity}/>
+          <AddCity addCity={this.addCity} placeholder={'Enter city...'}/>
+          <div id="errorContainer">{this.state.error}</div>
         </div>
-        <div id="errorContainer">{this.state.error}</div>
-        <div className="cityListContainer">
-          {cityList}
         </div>
-      </div>
-    );
+      )
+    }
   }
 }
 

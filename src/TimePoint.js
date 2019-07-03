@@ -6,7 +6,7 @@ const TimePoint = ({time, description, temperature}) => {
       <div className="timePoint">
         <div> {time}</div>
         <Icon description={description} time={time} size="normal" />
-        <div> {temperature}&#176;C </div>
+        <div> {temperature} </div>
       </div>
     )
 }

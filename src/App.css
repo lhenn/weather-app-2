@@ -1,12 +1,15 @@
 #root{
   height:100vh;
   width:100%;
+  display:-ms-grid;
   display:grid;
 }
 .App {
   text-align: center;
+  background-image:-webkit-gradient(linear, left top, left bottom, from(white), to(#5491bc));
+  background-image:-webkit-linear-gradient(white, #5491bc);
+  background-image:-o-linear-gradient(white, #5491bc);
   background-image:linear-gradient(white, #5491bc);
-
 }
 #app, button, input[type="text"]{
   font-family: "Trebuchet MS", "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Tahoma, sans-serif;
@@ -14,8 +17,12 @@
   background-color:inherit;
 }
 h1, h4 {
+  display:-webkit-box;
+  display:-ms-flexbox;
   display:flex;
-  align-items: flex-start;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
 }
 button {
   background-color:#515c6d;
@@ -29,17 +36,56 @@ button {
 button:hover {
   background-color:#073763;
 }
-
+button:focus, input:focus {
+  outline:0;
+}
 input{
   background-color: inherit;
   margin:10px;
   padding:0.5%;
   border: solid 1px #073763;
 }
-#headerContainer{
+#landingContainer{
+  display:-webkit-box;
+  display:-ms-flexbox;
   display:flex;
-  align-items:center;
-  justify-content: space-around;
+
+  -webkit-box-orient:vertical;
+
+  -webkit-box-direction:normal;
+
+      -ms-flex-flow:column;
+
+          flex-flow:column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  padding-top:10%;
+}
+#unit-control{
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
+  margin-right:50px;
+}
+#unit-control .label{
+  margin:5px;
+}
+#headerContainer{
+  display:-webkit-box;
+  display:-ms-flexbox;
+  display:flex;
+  -webkit-box-align:center;
+      -ms-flex-align:center;
+          align-items:center;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
 }
 #header{
   width:60%;
@@ -51,14 +97,24 @@ input{
   white-space:nowrap;
 }
 .cityListContainer{
+  display:-webkit-box;
+  display:-ms-flexbox;
   display:flex;
-  flex-flow:column-reverse;
+  -webkit-box-orient:vertical;
+  -webkit-box-direction:reverse;
+      -ms-flex-flow:column-reverse;
+          flex-flow:column-reverse;
   padding:50px;
 
 }
 .cityContainer{
+  display:-webkit-box;
+  display:-ms-flexbox;
   display:flex;
-  flex-direction:column;
+  -webkit-box-orient:vertical;
+  -webkit-box-direction:normal;
+      -ms-flex-direction:column;
+          flex-direction:column;
   background-color: #9aafbf;
   margin:20px 0;
   padding-left:10px;
@@ -66,16 +122,28 @@ input{
 
 }
 .dayContainer{
+  display:-webkit-box;
+  display:-ms-flexbox;
   display:flex;
-  flex-direction: row;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
   overflow-x:scroll;
 }
 .dayWeather{
+  display:-webkit-box;
+  display:-ms-flexbox;
   display:flex;
 }
 .currentWeather, .timePoint{
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  flex-direction: column;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
   background-color:inherit;
   margin:5px;
   padding:5px;
@@ -87,9 +155,15 @@ input{
   padding:5px;
 }
 .weekContainer{
+  display:-webkit-box;
+  display:-ms-flexbox;
   display:flex;
-  flex-direction:row;
-  justify-content: space-around;
+  -webkit-box-orient:horizontal;
+  -webkit-box-direction:normal;
+      -ms-flex-direction:row;
+          flex-direction:row;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
 }
 .hidden{
   display:none;
@@ -106,8 +180,13 @@ td, th{
   height:30px;
 }
 .closeButtonContainer{
+  display:-webkit-box;
+  display:-ms-flexbox;
   display:flex;
-  flex-flow:row-reverse;
+  -webkit-box-orient:horizontal;
+  -webkit-box-direction:reverse;
+      -ms-flex-flow:row-reverse;
+          flex-flow:row-reverse;
 }
 .cityHeader button{
   background-color: inherit;
@@ -119,13 +198,71 @@ td, th{
   color:black;
 }
 .cityHeader{
+  display:-webkit-box;
+  display:-ms-flexbox;
   display:flex;
-  justify-content: space-between;
-  align-items: flex-start;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
 }
 button.weekForecastButton {
   margin:10px;
 }
 #errorContainer{
   color:red;
+}
+/* toggle button */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 50px;
+  height: 30px;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: .1s;
+  -o-transition: .1s;
+  transition: .1s;
+  border-radius: 34px;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 2px;
+  bottom: 2px;
+  background-color: white;
+  -webkit-transition: .1s;
+  -o-transition: .1s;
+  transition: .1s;
+  border-radius: 50%;
+}
+
+input + .slider {
+  background-color: #515c6d;
+  border: solid 1px darkblue;
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(20px);
+      -ms-transform: translateX(20px);
+          transform: translateX(20px);
 }
