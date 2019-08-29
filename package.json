@@ -2,7 +2,7 @@
   "name": "weather-app2",
   "version": "0.1.0",
   "private": true,
-  "homepage" : "http://myname.github.io/weather-app-2",
+  "homepage" : "http://lhenn.github.io/weather-app-2",
   "dependencies": {
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
